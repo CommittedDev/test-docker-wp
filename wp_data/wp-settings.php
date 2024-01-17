@@ -48,7 +48,8 @@ require ABSPATH . WPINC . '/class-wp-recovery-mode.php';
 require ABSPATH . WPINC . '/error-protection.php';
 require ABSPATH . WPINC . '/default-constants.php';
 require_once ABSPATH . WPINC . '/plugin.php';
-
+define('WP_SITEURL','http://localhost');
+define('WP_HOME','http://localhost');
 /**
  * If not already configured, `$blog_id` will default to 1 in a single site
  * configuration. In multisite, it will be overridden by default in ms-settings.php.
