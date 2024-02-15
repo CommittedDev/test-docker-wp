@@ -12,9 +12,6 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
-    expose:
-      - 3306
-      - 33060
   wordpress:
     container_name: cmt_wordpress
     image: wordpress:latest
@@ -36,24 +33,22 @@ services:
     volumes: 
       - ./mongo/data:/data/db
   rabbitmq:
-    image: rabbitmq:3-management-alpine
+    image: "rabbitmq:3.12.12-management-alpine"  
     container_name: 'rabbitmq'
     ports:
-        - 5672:5672
-        - 15672:15672
+      # AMQP protocol port
+      - "5672:5672"
+      # HTTP management UI
+      - "15672:15672"
     volumes:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    networks:
-        - rabbitmq_go_net
-
-networks:
-  rabbitmq_go_net:
-    driver: bridge
+    depends_on:
+      - mongo
 volumes:
-  db_data:
-  wp_data:
   mongo:
   rabbitmq:
+  db_data:
+  wp_data:
 
 
